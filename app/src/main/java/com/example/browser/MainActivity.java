@@ -11,15 +11,33 @@ import android.view.MenuItem;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     WebView webView;
+    EditText url;
+    ImageView refresh;
+    ImageView home;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
+        initWeb();
+    }
+
+    public void init(){
+        webView = findViewById(R.id.webView);
+        home = findViewById(R.id.home);
+        refresh = findViewById(R.id.refresh);
+        url = findViewById(R.id.url);
+    }
+
+    public void initWeb(){
         webView = findViewById(R.id.webView);
         webView.loadUrl("https://www.google.com");
         webView.getSettings().setJavaScriptEnabled(true);
@@ -28,12 +46,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                getSupportActionBar().setTitle(title);
+                url.setText(title);
             }
         });
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
