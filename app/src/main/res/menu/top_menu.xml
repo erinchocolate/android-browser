@@ -14,5 +14,42 @@
         android:icon="@drawable/ic_baseline_keyboard_arrow_right_24"
         android:title="Forward" />
 
-    <item android:title="Item" />
+    <item
+        android:id="@+id/menu_refresh"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_refresh_24"
+        android:title="Refresh" />
+
+    <item
+        android:id="@+id/menu_home"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home"
+        />
+
+    <item
+        android:id="@+id/menu_newTab"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="New Tab"
+        />
+    <item
+        android:id="@+id/menu_history"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="History"
+        />
+    <item
+        android:id="@+id/menu_bookmark"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="Bookmark"
+        />
+    <item
+        android:id="@+id/menu_download"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="Download"
+        />
+    <item
+        android:id="@+id/menu_share"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="Share"
+        />
 </menu>
