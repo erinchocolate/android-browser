@@ -10,35 +10,34 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="@dimen/bar_height">
 
         <ImageView
-            android:id="@+id/home"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/webIcon"
+            android:layout_width="@dimen/bar_width"
+            android:layout_height="@dimen/bar_height"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:padding="11dp"
+            android:padding="5dp"
             android:src="@drawable/internet"
              />
 
         <EditText
             android:id="@+id/url"
-            android:layout_width="0dp"
-            android:layout_height="34dp"
+            android:layout_width="@dimen/bar_width"
+            android:layout_height="@dimen/bar_height"
             android:layout_weight="1"
-            android:layout_marginTop="3dp"
             android:background="#01000000"
             android:hint="Enter url"></EditText>
 
         <ImageView
-            android:id="@+id/refresh"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="11dp"
+            android:id="@+id/go"
+            android:layout_width="@dimen/bar_width"
+            android:layout_height="@dimen/bar_height"
+            android:padding="5dp"
             android:layout_marginRight="2dp"
             android:layout_marginEnd="2dp"
-            android:src="@drawable/refresh"
+            android:src="@drawable/go"
             />
 
     </LinearLayout>
@@ -46,7 +45,66 @@
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
+        android:layout_height="500dp"></WebView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/nav_width"
+            android:layout_height="@dimen/nav_height"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginRight="@dimen/gap"
+            android:padding="10dp"
+            android:src="@drawable/nav_left"
+            />
+
+        <ImageView
+            android:id="@+id/forward"
+            android:layout_width="@dimen/nav_width"
+            android:layout_height="@dimen/nav_height"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginRight="@dimen/gap"
+            android:padding="10dp"
+            android:src="@drawable/nav_right"
+            />
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="@dimen/nav_width"
+            android:layout_height="@dimen/nav_height"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginRight="@dimen/gap"
+            android:padding="10dp"
+            android:src="@drawable/nav_home"
+            />
+
+        <ImageView
+            android:id="@+id/refresh"
+            android:layout_width="@dimen/nav_width"
+            android:layout_height="@dimen/nav_height"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginRight="@dimen/gap"
+            android:padding="10dp"
+            android:src="@drawable/refresh"
+            />
+
+        <ImageView
+            android:id="@+id/page"
+            android:layout_width="@dimen/nav_width"
+            android:layout_height="@dimen/nav_height"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginRight="@dimen/gap"
+            android:padding="10dp"
+            android:src="@drawable/nav_page"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>
