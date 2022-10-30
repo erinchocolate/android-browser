@@ -53,6 +53,7 @@ public class BookmarkActivity extends AppCompatActivity implements RecyclerViewI
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, UpdateBookmarkActivity.class);
+        intent.putExtra("id", website_id.get(position));
         intent.putExtra("url", website_url.get(position));
         intent.putExtra("title", website_title.get(position));
         startActivity(intent);

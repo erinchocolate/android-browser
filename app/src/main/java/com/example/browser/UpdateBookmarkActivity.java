@@ -44,7 +44,7 @@ public class UpdateBookmarkActivity extends AppCompatActivity {
             //Setting Intent Data
             bookmark_title.setText(title);
             bookmark_url.setText(url);
-            //Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
+
         }else{
             Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
         }

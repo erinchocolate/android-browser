@@ -113,12 +113,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + HISTORY_TABLE);
     }
 
-    void updateData(String row_id, String title, String url){
+    void updateData(String id, String title, String url){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_TITLE, title);
         cv.put(COLUMN_URL, url);
-        long result = db.update(BOOKMARK_TABLE, cv, "_id=?", new String[]{row_id});
+        long result = db.update(BOOKMARK_TABLE, cv, "_id = ?", new String[]{id});
         if(result == -1){
             Toast.makeText(context, "Bookmark update failed", Toast.LENGTH_SHORT).show();
         }
