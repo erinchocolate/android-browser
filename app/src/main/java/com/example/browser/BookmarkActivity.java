@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,8 +14,9 @@ import java.util.ArrayList;
 
 public class BookmarkActivity extends AppCompatActivity implements RecyclerViewInterface{
     RecyclerView recyclerView;
-    ArrayList<String> website_id, website_title, website_url;
+    ArrayList<String> websiteId, websiteTitle, websiteUrl;
     DatabaseHelper db;
+    Activity activity;
     CustomAdapter customAdapter;
 
     @Override
@@ -23,15 +25,15 @@ public class BookmarkActivity extends AppCompatActivity implements RecyclerViewI
         setContentView(R.layout.activity_bookmark);
         recyclerView = findViewById(R.id.recyclerView);
 
-        website_id = new ArrayList<>();
-        website_url = new ArrayList<>();
-        website_title = new ArrayList<>();
+        websiteId = new ArrayList<>();
+        websiteUrl = new ArrayList<>();
+        websiteTitle = new ArrayList<>();
 
         db = new DatabaseHelper(BookmarkActivity.this);
 
         storeBookmarkDataInArray();
 
-        customAdapter = new CustomAdapter(BookmarkActivity.this,this, website_id, website_title, website_url, this);
+        customAdapter = new CustomAdapter(BookmarkActivity.this,this, websiteId, websiteTitle, websiteUrl, this);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(BookmarkActivity.this));
     }
@@ -43,9 +45,9 @@ public class BookmarkActivity extends AppCompatActivity implements RecyclerViewI
             Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
         }else{
             while(cursor.moveToNext()){
-                website_id.add(cursor.getString(0));
-                website_title.add(cursor.getString(1));
-                website_url.add(cursor.getString(2));
+                websiteId.add(cursor.getString(0));
+                websiteTitle.add(cursor.getString(1));
+                websiteUrl.add(cursor.getString(2));
             }
         }
     }
@@ -53,9 +55,9 @@ public class BookmarkActivity extends AppCompatActivity implements RecyclerViewI
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, UpdateBookmarkActivity.class);
-        intent.putExtra("id", website_id.get(position));
-        intent.putExtra("url", website_url.get(position));
-        intent.putExtra("title", website_title.get(position));
+        intent.putExtra("id", websiteId.get(position));
+        intent.putExtra("url", websiteUrl.get(position));
+        intent.putExtra("title", websiteTitle.get(position));
         startActivity(intent);
     }
 

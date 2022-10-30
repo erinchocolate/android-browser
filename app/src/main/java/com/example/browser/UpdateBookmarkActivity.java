@@ -9,27 +9,39 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class UpdateBookmarkActivity extends AppCompatActivity {
-    EditText bookmark_title, bookmark_url;
-    Button update;
+    EditText bookmarkTitle, bookmarkUrl;
+    Button update, delete;
     String id, url, title;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_bookmark);
 
-        bookmark_title = findViewById(R.id.bookmark_title);
-        bookmark_url = findViewById(R.id.bookmark_url);
+        bookmarkTitle = findViewById(R.id.bookmarkTitle);
+        bookmarkUrl = findViewById(R.id.bookmarkUrl);
         update = findViewById(R.id.update);
+        delete = findViewById(R.id.delete);
 
+        //Get edited bookmark info: url, title and id
         getIntentData();
+
+        //Update user input into database
         update.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 DatabaseHelper db = new DatabaseHelper(UpdateBookmarkActivity.this);
-                title = bookmark_title.getText().toString().trim();
-                url = bookmark_url.getText().toString().trim();
-                db.updateData(id, title, url);
+                title = bookmarkTitle.getText().toString().trim();
+                url = bookmarkUrl.getText().toString().trim();
+                db.updateBookmark(id, title, url);
+            }
+        });
+
+        //Update selected bookmark
+        delete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                DatabaseHelper db = new DatabaseHelper(UpdateBookmarkActivity.this);
+                db.deleteOneBookmark(id);
             }
         });
     }
@@ -42,8 +54,8 @@ public class UpdateBookmarkActivity extends AppCompatActivity {
             url = getIntent().getStringExtra("url");
 
             //Setting Intent Data
-            bookmark_title.setText(title);
-            bookmark_url.setText(url);
+            bookmarkTitle.setText(title);
+            bookmarkUrl.setText(url);
 
         }else{
             Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();

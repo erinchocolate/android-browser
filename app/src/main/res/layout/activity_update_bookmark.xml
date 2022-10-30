@@ -9,7 +9,7 @@
     tools:context=".UpdateBookmarkActivity">
 
     <EditText
-        android:id="@+id/bookmark_title"
+        android:id="@+id/bookmarkTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -17,7 +17,7 @@
         android:text="Title" />
 
     <EditText
-        android:id="@+id/bookmark_url"
+        android:id="@+id/bookmarkUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -29,4 +29,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update" />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete" />
+
 </LinearLayout>

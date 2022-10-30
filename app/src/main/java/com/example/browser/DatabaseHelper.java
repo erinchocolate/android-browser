@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.ContentView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+// I learned how to use database from this tutorial: https://www.youtube.com/playlist?list=PLSrm9z4zp4mGK0g_0_jxYGgg3os9tqRUQ
 public class DatabaseHelper extends SQLiteOpenHelper {
     private Context context;
     private static final String DATABASE_NAME = "Browser.db";
@@ -92,14 +92,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(result == -1){
             Toast.makeText(context, "History Insertion Failed", Toast.LENGTH_SHORT).show();
         }
-        else{
-
-        }
     }
 
-    void deleteOneTab(String row_id){
+    void deleteOneTab(String id){
         SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.delete(TAB_TABLE, "_id=?", new String[]{row_id});
+        long result = db.delete(TAB_TABLE, "_id=?", new String[]{id});
         if(result == -1){
             Toast.makeText(context, "Tab Delete Failed", Toast.LENGTH_SHORT).show();
         }
@@ -108,12 +105,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    void deleteOneBookmark(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(BOOKMARK_TABLE, "_id=?", new String[]{id});
+        if(result == -1){
+            Toast.makeText(context, "Bookmark Delete Failed", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(context, "Bookmark Delete Successfully", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     void deleteHistory(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + HISTORY_TABLE);
     }
 
-    void updateData(String id, String title, String url){
+
+    void updateBookmark(String id, String title, String url){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_TITLE, title);

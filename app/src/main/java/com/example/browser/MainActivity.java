@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView go;
     private ImageView webIcon;
     private InputMethodManager manager;
-    private String currentUrl = "https://www.google.com";
+    private String currentUrl = "";
     private String currentTitle;
 
     @Override
@@ -53,8 +53,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         init();
         initWebSetting();
+
         if(getIntent().getExtras() != null)
         {
+           //If it's a redirect from tab page, then load the website saved in tab
            String url = getIntent().getStringExtra("url");
            load(url);
         }
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onPageFinished(view, url);
                 currentUrl = url;
                 currentTitle = view.getTitle();
+                //Add history into database
                 DatabaseHelper db = new DatabaseHelper(MainActivity.this);
                 db.addHistory(currentTitle, currentUrl);
             }
@@ -101,8 +104,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // Display website icon
                 webIcon.setImageBitmap(icon);
             }
-
-
         });
     }
 
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 manager.hideSoftInputFromWindow(url.getApplicationWindowToken(), 0);
             }
             String input = url.getText().toString();
+            // Check user input is a valid url, if not, use google to search user input
             if (!isValidUrl(input)) {
                 input = "https://www.google.com/search?q=" + input;
             }
@@ -152,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+        // When user press enter on keyboard, load the website and clear focus of the url address bar
         if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN){
             go.callOnClick();
             url.clearFocus();
@@ -179,6 +182,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //Use regular expression to check if user input is valid url or search term
+    //reference: https://www.geeksforgeeks.org/check-if-an-url-is-valid-or-not-using-regular-expression/#:~:text=In%20Java%2C%20this%20can%20be,regular%20expression%2C%20else%20return%20false
     public boolean isValidUrl(String url){
         String regex = "((http|https)://)(www.)?"
                 + "[a-zA-Z0-9@:%._\\+~#?&//=]"
@@ -237,10 +242,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.menu_bookmark:
                 bookmarkPressed();
                 break;
+            case R.id.menu_download:
+                downloadPressed();
+                break;
         }
         return super.onContextItemSelected(item);
     }
 
+    // Reference: https://stackoverflow.com/questions/10069050/download-file-inside-webview
+    public void downloadPressed(){
+        webView.setDownloadListener(new DownloadListener() {
+            public void onDownloadStart(String url, String userAgent,
+                                        String contentDisposition, String mimetype,
+                                        long contentLength) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+    }
 
     public void homePressed(){
         webView.loadUrl("https://www.google.com");
@@ -268,6 +288,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         webView.reload();
     }
 
+    // User can share the website address through third-party apps
     public void sharePressed(){
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
@@ -294,11 +315,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         db.addBookmark(currentTitle, currentUrl);
     }
 
+    // Go to bookmark page
     public void bookmarkPressed(){
         Intent intent = new Intent(this, BookmarkActivity.class);
         startActivity(intent);
     }
 
+    // Add previous tab to database and start a new activity
     public void addTabPressed(){
         DatabaseHelper db = new DatabaseHelper(MainActivity.this);
         db.addTab(currentTitle, currentUrl);
@@ -306,11 +329,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+    // Go to tab page
     public void tabPressed(){
         Intent intent = new Intent(this, TabActivity.class);
         startActivity(intent);
     }
 
+    // Message box pops up when the user clicks clear history
     public void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Clear history");
@@ -318,7 +343,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
             }
         });
         builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {

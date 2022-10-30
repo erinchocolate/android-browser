@@ -13,19 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
+// I learned how to use RecycleView and adapter from this tutorial:
+// https://www.youtube.com/watch?v=Mc0XT58A1Z4&t=1309s
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder>  {
     private final RecyclerViewInterface recyclerViewInterface;
     private Context context;
     private Activity activity;
-    private ArrayList website_id, website_title, website_url;
+    private ArrayList websiteId, websiteTitle, websiteUrl;
 
     CustomAdapter(Activity activity, Context context, ArrayList website_id, ArrayList website_title, ArrayList website_url, RecyclerViewInterface recyclerViewInterface){
         this.activity = activity;
         this.context = context;
-        this.website_id = website_id;
-        this.website_title = website_title;
-        this.website_url = website_url;
+        this.websiteId = website_id;
+        this.websiteTitle = website_title;
+        this.websiteUrl = website_url;
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
@@ -39,27 +40,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull CustomAdapter.MyViewHolder holder, int position) {
-        holder.website_id.setText(String.valueOf(website_id.get(position)));
-        holder.website_title.setText(String.valueOf(website_title.get(position)));
-        holder.website_url.setText(String.valueOf(website_url.get(position)));
+        holder.website_id.setText(String.valueOf(websiteId.get(position)));
+        holder.website_title.setText(String.valueOf(websiteTitle.get(position)));
+        holder.website_url.setText(String.valueOf(websiteUrl.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return website_id.size();
+        return websiteId.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView website_id, website_title, website_url;
-        LinearLayout mainLayout;
 
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
-            website_id = itemView.findViewById(R.id.website_id);
-            website_title = itemView.findViewById(R.id.website_title);
-            website_url = itemView.findViewById(R.id.website_url);
-            mainLayout = itemView.findViewById(R.id.mainLayout);
+            website_id = itemView.findViewById(R.id.websiteId);
+            website_title = itemView.findViewById(R.id.websiteTitle);
+            website_url = itemView.findViewById(R.id.websiteUrl);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

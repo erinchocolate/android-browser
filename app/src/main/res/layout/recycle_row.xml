@@ -16,7 +16,7 @@
             android:padding="12dp">
 
             <TextView
-                android:id="@+id/website_id"
+                android:id="@+id/websiteId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/website_title"
+                android:id="@+id/websiteTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -42,14 +42,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/website_url"
+                android:id="@+id/websiteUrl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="url"
                 android:ellipsize="end"
                 android:maxLines="1"
-                app:layout_constraintStart_toStartOf="@+id/website_title"
-                app:layout_constraintTop_toBottomOf="@+id/website_title" />
+                app:layout_constraintStart_toStartOf="@+id/websiteTitle"
+                app:layout_constraintTop_toBottomOf="@+id/websiteTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
