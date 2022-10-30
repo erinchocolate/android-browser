@@ -56,7 +56,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             website_id = itemView.findViewById(R.id.website_id);
             website_title = itemView.findViewById(R.id.website_title);
             website_url = itemView.findViewById(R.id.website_url);
-
         }
     }
 }

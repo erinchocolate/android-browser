@@ -3,6 +3,7 @@ package com.example.browser;
 import static java.net.Proxy.Type.HTTP;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
@@ -20,7 +21,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.DownloadListener;
+import android.webkit.WebBackForwardList;
 import android.webkit.WebChromeClient;
+import android.webkit.WebHistoryItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -42,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String currentUrl = "https://www.google.com";
     private String currentTitle;
     private Bitmap currentIcon;
+    private ArrayList<String> website_id = new ArrayList<>();
+    private ArrayList<String> website_title = new ArrayList<>();
+    private ArrayList<String> website_url = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,13 +259,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void addHistory(){
-//        DatabaseHelper db = new DatabaseHelper(MainActivity.this);
-//        db.addHistory(currentTitle, currentUrl);
+
+    public void getHistoryData() {
+        WebBackForwardList historyList = webView.copyBackForwardList();
+        for(int i = 0; i < historyList.getSize(); i++){
+            WebHistoryItem item = historyList.getItemAtIndex(i);
+            String title = item.getTitle();
+            String url = item.getUrl();
+            int id = i;
+            website_title.add(title);
+            website_id.add(String.valueOf(id));
+            website_url.add(url);
+        }
     }
 
     public void historyPressed(){
+        getHistoryData();
         Intent intent = new Intent(this, HistoryActivity.class);
+        intent.putStringArrayListExtra("title", website_title);
+        intent.putStringArrayListExtra("id", website_id);
+        intent.putStringArrayListExtra("url", website_url);
         startActivity(intent);
     }
 

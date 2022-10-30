@@ -1,14 +1,30 @@
 package com.example.browser;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import java.util.ArrayList;
+
 public class HistoryActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
+    ArrayList<String> website_id, website_title, website_url;
+    CustomAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+        recyclerView = findViewById(R.id.historyView);
+
+        website_title = getIntent().getStringArrayListExtra("title");
+        website_id = getIntent().getStringArrayListExtra("id");
+        website_url = getIntent().getStringArrayListExtra("url");
+
+        customAdapter = new CustomAdapter(HistoryActivity.this,this, website_id, website_title, website_url);
+        recyclerView.setAdapter(customAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(HistoryActivity.this));
     }
 }

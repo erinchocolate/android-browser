@@ -32,11 +32,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:text="Title 1"
+                android:text="Title"
+                android:textColor="#000"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#000"
                 app:layout_constraintStart_toEndOf="@+id/website_id"
                 app:layout_constraintTop_toTopOf="@+id/website_id" />
 
@@ -44,7 +43,7 @@
                 android:id="@+id/website_url"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Author1"
+                android:text="url"
                 app:layout_constraintStart_toStartOf="@+id/website_title"
                 app:layout_constraintTop_toBottomOf="@+id/website_title" />
 
