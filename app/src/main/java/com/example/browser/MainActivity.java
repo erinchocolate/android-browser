@@ -44,10 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private InputMethodManager manager;
     private String currentUrl = "https://www.google.com";
     private String currentTitle;
-    private Bitmap currentIcon;
-    private ArrayList<String> website_id = new ArrayList<>();
-    private ArrayList<String> website_title = new ArrayList<>();
-    private ArrayList<String> website_url = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onPageFinished(view, url);
                 currentUrl = url;
                 currentTitle = view.getTitle();
+                DatabaseHelper db = new DatabaseHelper(MainActivity.this);
+                db.addHistory(currentTitle, currentUrl);
             }
         });
 
@@ -100,8 +98,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onReceivedIcon(view, icon);
                 // Display website icon
                 webIcon.setImageBitmap(icon);
-                currentIcon = icon;
             }
+
+
         });
     }
 
@@ -203,6 +202,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
+            case R.id.menu_addTab:
+                addTabPressed();
+                break;
             case R.id.menu_tab:
                 tabPressed();
                 break;
@@ -223,6 +225,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.menu_history:
                 historyPressed();
+                break;
+            case R.id.menu_clearHistory:
+                clearHistoryPressed();
                 break;
             case R.id.menu_addBookmark:
                 addBookmarkPressed();
@@ -273,25 +278,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void getHistoryData() {
-        WebBackForwardList historyList = webView.copyBackForwardList();
-        for(int i = 0; i < historyList.getSize(); i++){
-            WebHistoryItem item = historyList.getItemAtIndex(i);
-            String title = item.getTitle();
-            String url = item.getUrl();
-            int id = i;
-            website_title.add(title);
-            website_id.add(String.valueOf(id));
-            website_url.add(url);
-        }
+    public void clearHistoryPressed() {
+        DatabaseHelper db = new DatabaseHelper(MainActivity.this);
+        db.deleteHistory();
     }
 
     public void historyPressed(){
-        getHistoryData();
         Intent intent = new Intent(this, HistoryActivity.class);
-        intent.putStringArrayListExtra("title", website_title);
-        intent.putStringArrayListExtra("id", website_id);
-        intent.putStringArrayListExtra("url", website_url);
         startActivity(intent);
     }
 
@@ -305,8 +298,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
-    public void tabPressed(){
-
+    public void addTabPressed(){
+        DatabaseHelper db = new DatabaseHelper(MainActivity.this);
+        db.addTab(currentTitle, currentUrl);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
+
+    public void tabPressed(){
+        Intent intent = new Intent(this, TabActivity.class);
+        startActivity(intent);
+    }
+
 
 }
