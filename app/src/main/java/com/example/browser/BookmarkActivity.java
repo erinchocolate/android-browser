@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -51,7 +52,10 @@ public class BookmarkActivity extends AppCompatActivity implements RecyclerViewI
 
     @Override
     public void onItemClick(int position) {
-
+        Intent intent = new Intent(this, UpdateBookmarkActivity.class);
+        intent.putExtra("url", website_url.get(position));
+        intent.putExtra("title", website_title.get(position));
+        startActivity(intent);
     }
 
     @Override

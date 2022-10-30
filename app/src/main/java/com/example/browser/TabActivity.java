@@ -59,7 +59,8 @@ public class TabActivity extends AppCompatActivity implements RecyclerViewInterf
 
     @Override
     public void onItemLongClick(int position) {
-        db.deleteOneTab(String.valueOf(position));
+        String id = website_id.get(position);
+        db.deleteOneTab(id);
         customAdapter.notifyItemRemoved(position);
         finish();
     }
