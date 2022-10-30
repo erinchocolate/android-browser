@@ -22,8 +22,8 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".TabActivity"
-            android:label="My tabs"
+            android:name=".BookmarkActivity"
+            android:label="My bookmarks"
             android:parentActivityName=".MainActivity"
             android:exported="false">
             <meta-data

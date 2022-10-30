@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class TabActivity extends AppCompatActivity {
+public class BookmarkActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<String> website_id, website_title, website_url;
     DatabaseHelper db;
@@ -19,25 +19,25 @@ public class TabActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab);
+        setContentView(R.layout.activity_bookmark);
         recyclerView = findViewById(R.id.recyclerView);
 
         website_id = new ArrayList<>();
         website_url = new ArrayList<>();
         website_title = new ArrayList<>();
 
-        db = new DatabaseHelper(TabActivity.this);
+        db = new DatabaseHelper(BookmarkActivity.this);
 
-        storeDataInArray();
+        storeBookmarkDataInArray();
 
-        customAdapter = new CustomAdapter(TabActivity.this,this, website_id, website_title, website_url);
+        customAdapter = new CustomAdapter(BookmarkActivity.this,this, website_id, website_title, website_url);
         recyclerView.setAdapter(customAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(TabActivity.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(BookmarkActivity.this));
     }
 
 
-    public void storeDataInArray(){
-        Cursor cursor = db.readAllData();
+    public void storeBookmarkDataInArray(){
+        Cursor cursor = db.readBookmarkData();
         if(cursor.getCount()==0){
             Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
         }else{

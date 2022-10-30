@@ -51,11 +51,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Bookmark saved", Toast.LENGTH_SHORT).show();
         }
     }
 
-    Cursor readAllData(){
+    Cursor readBookmarkData(){
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;

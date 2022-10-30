@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 currentUrl = url;
+                currentTitle = view.getTitle();
             }
         });
 
@@ -79,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onReceivedTitle(view, title);
                 // Display website name
                 url.setText(title);
-                currentTitle = title;
             }
 
             @Override
@@ -206,15 +206,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.menu_addBookmark:
                 addBookmarkPressed();
                 break;
+            case R.id.menu_bookmark:
+                bookmarkPressed();
+                break;
         }
         return super.onContextItemSelected(item);
     }
 
-    public void tabPressed(){
-//        Website tab = new Website(currentUrl, currentTitle, currentIcon);
-        Intent intent = new Intent(this, TabActivity.class);
-        startActivity(intent);
-    }
 
     public void homePressed(){
         webView.loadUrl("https://www.google.com");
@@ -254,6 +252,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void addHistory(){
+//        DatabaseHelper db = new DatabaseHelper(MainActivity.this);
+//        db.addHistory(currentTitle, currentUrl);
+    }
+
     public void historyPressed(){
         Intent intent = new Intent(this, HistoryActivity.class);
         startActivity(intent);
@@ -262,6 +265,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void addBookmarkPressed(){
         DatabaseHelper db = new DatabaseHelper(MainActivity.this);
         db.addBookmark(currentTitle, currentUrl);
+    }
+
+    public void bookmarkPressed(){
+        Intent intent = new Intent(this, BookmarkActivity.class);
+        startActivity(intent);
+    }
+
+    public void tabPressed(){
+
     }
 
 }
