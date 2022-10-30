@@ -14,17 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder>  {
-
+    private final RecyclerViewInterface recyclerViewInterface;
     private Context context;
     private Activity activity;
     private ArrayList website_id, website_title, website_url;
 
-    CustomAdapter(Activity activity, Context context, ArrayList website_id, ArrayList website_title, ArrayList website_url){
+    CustomAdapter(Activity activity, Context context, ArrayList website_id, ArrayList website_title, ArrayList website_url, RecyclerViewInterface recyclerViewInterface){
         this.activity = activity;
         this.context = context;
         this.website_id = website_id;
         this.website_title = website_title;
         this.website_url = website_url;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
@@ -32,7 +33,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public CustomAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycle_row, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, recyclerViewInterface);
     }
 
     @Override
@@ -47,15 +48,27 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         return website_id.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView website_id, website_title, website_url;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             website_id = itemView.findViewById(R.id.website_id);
             website_title = itemView.findViewById(R.id.website_title);
             website_url = itemView.findViewById(R.id.website_url);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(recyclerViewInterface!= null){
+                        int pos = getAdapterPosition();
+
+                        if(pos!= RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 }

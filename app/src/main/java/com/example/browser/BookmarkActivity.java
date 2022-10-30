@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class BookmarkActivity extends AppCompatActivity {
+public class BookmarkActivity extends AppCompatActivity implements RecyclerViewInterface{
     RecyclerView recyclerView;
     ArrayList<String> website_id, website_title, website_url;
     DatabaseHelper db;
@@ -30,7 +30,7 @@ public class BookmarkActivity extends AppCompatActivity {
 
         storeBookmarkDataInArray();
 
-        customAdapter = new CustomAdapter(BookmarkActivity.this,this, website_id, website_title, website_url);
+        customAdapter = new CustomAdapter(BookmarkActivity.this,this, website_id, website_title, website_url, this);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(BookmarkActivity.this));
     }
@@ -47,5 +47,10 @@ public class BookmarkActivity extends AppCompatActivity {
                 website_url.add(cursor.getString(2));
             }
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 }

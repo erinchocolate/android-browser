@@ -49,13 +49,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> website_title = new ArrayList<>();
     private ArrayList<String> website_url = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        initWeb();
+        initWebSetting();
+        if(getIntent().getExtras() != null)
+        {
+           String url = getIntent().getStringExtra("url");
+           load(url);
+        }
+        else{
+            load();
+        }
     }
 
     public void init(){
@@ -69,8 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         url.setOnKeyListener(this);
     }
 
-    public void initWeb(){
-        webView.loadUrl("https://www.google.com");
+    public void initWebSetting(){
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient(){
             @Override
@@ -97,6 +103,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 currentIcon = icon;
             }
         });
+    }
+
+    public void load(){
+        webView.loadUrl("https://www.google.com");
+    }
+
+    public void load(String url){
+        webView.loadUrl(url);
     }
 
     @Override
@@ -258,7 +272,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("error", "share failed");
         }
     }
-
 
     public void getHistoryData() {
         WebBackForwardList historyList = webView.copyBackForwardList();
