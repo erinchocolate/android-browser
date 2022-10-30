@@ -15,12 +15,30 @@
         android:theme="@style/Theme.Browser"
         tools:targetApi="31">
         <activity
+            android:name=".HistoryActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".TabActivity"
+            android:label="My tabs"
+            android:parentActivityName=".MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

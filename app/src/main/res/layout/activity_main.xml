@@ -20,7 +20,7 @@
             android:focusableInTouchMode="true"
             android:padding="8dp"
             android:src="@drawable/internet"
-             />
+            />
 
         <EditText
             android:id="@+id/url"

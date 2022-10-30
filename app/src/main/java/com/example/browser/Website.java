@@ -18,6 +18,12 @@ public class Website {
         this.title=title;
     }
 
+    public Website(String url,String title, Bitmap icon){
+        this.url=url;
+        this.title=title;
+        this.icon=icon;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

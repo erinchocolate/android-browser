@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         init();
         initWeb();
-
     }
 
     public void init(){
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onReceivedTitle(view, title);
                 // Display website name
                 url.setText(title);
+                currentTitle = title;
             }
 
             @Override
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onReceivedIcon(view, icon);
                 // Display website icon
                 webIcon.setImageBitmap(icon);
+                currentIcon = icon;
             }
         });
     }
@@ -179,8 +182,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            case R.id.menu_newTab:
-                newTabPressed();
+            case R.id.menu_tab:
+                tabPressed();
                 break;
             case R.id.menu_back:
                 backPressed();
@@ -197,14 +200,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.menu_share:
                 sharePressed();
                 break;
+            case R.id.menu_history:
+                historyPressed();
+                break;
+            case R.id.menu_addBookmark:
+                addBookmarkPressed();
+                break;
         }
         return super.onContextItemSelected(item);
     }
 
-    public void newTabPressed(){
-        Website tab = new Website(currentUrl, currentTitle);
-        tab.setIcon(currentIcon);
-        Intent intent = new Intent(this, MainActivity.class);
+    public void tabPressed(){
+//        Website tab = new Website(currentUrl, currentTitle, currentIcon);
+        Intent intent = new Intent(this, TabActivity.class);
         startActivity(intent);
     }
 
@@ -246,5 +254,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void historyPressed(){
+        Intent intent = new Intent(this, HistoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void addBookmarkPressed(){
+        DatabaseHelper db = new DatabaseHelper(MainActivity.this);
+        db.addBookmark(currentTitle, currentUrl);
+    }
 
 }

@@ -28,28 +28,30 @@
         />
 
     <item
-        android:id="@+id/menu_newTab"
-        android:icon="@drawable/ic_baseline_share_24"
-        android:title="New Tab"
+        android:id="@+id/menu_addBookmark"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_star_outline_24"
+        android:title="Bookmark"
+        />
+
+    <item
+        android:id="@+id/menu_tab"
+        android:title="Tab"
         />
     <item
         android:id="@+id/menu_history"
-        android:icon="@drawable/ic_baseline_share_24"
         android:title="History"
         />
     <item
         android:id="@+id/menu_bookmark"
-        android:icon="@drawable/ic_baseline_share_24"
         android:title="Bookmark"
         />
     <item
         android:id="@+id/menu_download"
-        android:icon="@drawable/ic_baseline_share_24"
         android:title="Download"
         />
     <item
         android:id="@+id/menu_share"
-        android:icon="@drawable/ic_baseline_share_24"
         android:title="Share"
         />
 </menu>
