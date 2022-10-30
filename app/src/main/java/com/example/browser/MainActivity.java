@@ -6,8 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -279,8 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void clearHistoryPressed() {
-        DatabaseHelper db = new DatabaseHelper(MainActivity.this);
-        db.deleteHistory();
+        confirmDialog();
     }
 
     public void historyPressed(){
@@ -310,5 +311,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+    public void confirmDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Clear history");
+        builder.setMessage("Are you sure you want to clear your history?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DatabaseHelper db = new DatabaseHelper(MainActivity.this);
+                db.deleteHistory();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.create().show();
+    }
 
 }
