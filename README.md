@@ -34,6 +34,8 @@ This project is a simple browser android app made using Java and SQLite.
 
 - Go back
 - Go forward
+
+
 ![navigation](https://github.com/erinchocolate/android-browser/blob/master/demo/basic%20navigation.gif)
 
 ### Check user input is a valid URL or search Term
@@ -65,6 +67,8 @@ This project is a simple browser android app made using Java and SQLite.
 ### History
 - User can check their history
 - User can clear their history
+
+
 ![history](https://github.com/erinchocolate/android-browser/blob/master/demo/History.gif)
 
 ### Share
